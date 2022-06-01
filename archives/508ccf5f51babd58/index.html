@@ -15,10 +15,10 @@
     <title>
       
       
-         iPhone 14 Pro Max在线 
+         我命由我 
       
     </title>
-    <link rel="canonical" href="https://limetw.eu/archives/6cd26997da81737f/">
+    <link rel="canonical" href="https://limetw.eu/archives/508ccf5f51babd58/">
 
     <style>
   * {
@@ -418,7 +418,7 @@
 
 
 <section id=content>
-  <h1> iPhone 14 Pro Max在线 </h1>
+  <h1> 我命由我 </h1>
 
   
     <div id=sub-header>
@@ -426,27 +426,32 @@
   
 
   <div class="entry-content">
-    <p><img src="https://limetw.eu/../oss/ld94VCWH.jpg" alt="">
-<br>
-iPhone13还没上市，有人就问我能不能提前改尾巴。</p>
-<p>IOS越狱直接改成 iPhone14,5</p>
-<p>Android 改厂商为空格，型号改成13，再买个QQ会员，利用自定义功能添加iPhone就可以了。</p>
-<p>不过，这种方法想改成iPhone 13 Pro Max是徒劳的，QQ会显示成iphone 13 pro max在线。而且，自定义功能无法把M和ax拼凑在一起，会多出来一个空格。</p>
-<p><img src="https://limetw.eu/../oss/x3CAAVte.png" alt=""></p>
-<p>通过HttpCanary抓包，发现可以随便改。</p>
-<pre tabindex="0"><code>{&#34;servicesName&#34;:&#34;VIP.CustomOnlineStatusServer.CustomOnlineStatusObj&#34;,&#34;cmd&#34;:&#34;SetCustomOnlineStatus&#34;,&#34;args&#34;:[{&#34;iAppType&#34;:3,&#34;sIMei&#34;:&#34;b00dc00000ab00de&#34;,&#34;sModel&#34;:&#34;自定义型号&#34;,&#34;sDeviceInfo&#34;:&#34;i=b00dc00000ab00de&amp;imsi=&amp;mac=02:00:00:00:00:00&amp;m=自定义型号&amp;o=12&amp;a=32&amp;sd=0&amp;c64=1&amp;sc=1&amp;p=1440*2160&amp;aid=b00dc00000ab00de&amp;f=删除厂商&amp;mm=7374&amp;cf=1762&amp;cc=8&amp;qimei=0e000000000000000a0b0ee000000a0000d&amp;qimei36=0e000000000000000a0b0ee000000a0000d&amp;sharpP=0&amp;n=wifi&amp;support_xsj_live=true&amp;client_mod=default&#34;,&#34;sVer&#34;:&#34;8.3.30&#34;,&#34;sManu&#34;:&#34;删除厂商&#34;,&#34;lUin&#34;:12345678,&#34;bShowInfo&#34;:true,&#34;sDesc&#34;:&#34;&#34;,&#34;sModelShow&#34;:&#34;自定义型号&#34;}]}
-</code></pre><p>修改请求包。删除两个厂商字眼，不要留空。三个型号随意，改成相同的。最后，重新发包就成功了。</p>
-<p><img src="https://limetw.eu/../oss/9RonpH82.png" alt=""></p>
-<p>网络类型改5G。其实，Android开发者官网早在5G普及之前就告诉你这个值是20。</p>
+    <p>累了，我是不会打国产疫苗的，越来越恶心人。</p>
+<p>无意间发现，健康码小程序是本地存储数据的。再详细的东西不便透露。总之，非常简单地拦截一个数据包就可以让你畅通无阻了，何乐而不为呢？</p>
+<p><img src="https://limetw.eu/../oss/ED2hLkTz.png" alt=""></p>
+<p><br>
+<img src="https://limetw.eu/../oss/pcFBgary.png" alt=""></p>
+<p>最开始尝试解包小程序，反而把问题复杂化了。</p>
+<p>老规矩，HttpCanary抓包。</p>
+<p><img src="https://limetw.eu/../oss/llfsFpXo.png" alt=""></p>
+<p>通过分析，只需篡改两个变量：</p>
+<p><img src="https://limetw.eu/../oss/hpL2fGU1.png" alt=""></p>
+<p><br>
+<img src="https://limetw.eu/../oss/MPBwk3I1.png" alt=""></p>
+<p>第一个必须为0，否则不是绿码。第二个是疫苗次数，所以3是打满。</p>
+<p><img src="https://limetw.eu/../oss/1KK1da72.png" alt=""></p>
+<p><br>
+<img src="https://limetw.eu/../oss/UlcLPYRz.png" alt=""></p>
+<p>完美。</p>
 
   </div>
 
   <div id=links>
     
-      <a href="https://limetw.eu/archives/508ccf5f51babd58/">&laquo;&nbsp;我命由我</a>
+      <a href="https://limetw.eu/archives/cdd68a1605728c3b/">&laquo;&nbsp;在籠裏出生的鳥會認為飛翔是一種病</a>
     
     
-      <a href="https://limetw.eu/archives/650ebebcba4b92ba/">这波稳了&nbsp;&raquo;</a>
+      <a href="https://limetw.eu/archives/6cd26997da81737f/">iPhone 14 Pro Max在线&nbsp;&raquo;</a>
     
   </div>
 </section>
