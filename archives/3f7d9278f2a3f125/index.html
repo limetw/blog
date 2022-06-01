@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<meta name="generator" content="Hugo 0.99.1" />
     <meta charset="utf-8">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
@@ -16,10 +15,10 @@
     <title>
       
       
-         Dulcinea Notes 
+         两句话优雅扶墙 
       
     </title>
-    <link rel="canonical" href="https://limetw.eu/">
+    <link rel="canonical" href="https://limetw.eu/archives/3f7d9278f2a3f125/">
 
     <style>
   * {
@@ -405,7 +404,6 @@
 </style>
 
 
-    <link rel="alternate" type="application/rss+xml" href="https://limetw.eu/index.xml" title="Dulcinea Notes" />
     </head>
 
   <body>
@@ -420,58 +418,83 @@
 
 
 <section id=content>
-  <ul class=posts_listing>
+  <h1> 两句话优雅扶墙 </h1>
+
+  
+    <div id=sub-header>
+    </div>
+  
+
+  <div class="entry-content">
+    <ul>
+<li>
+<p>系统： Debian 11 bullseye</p>
+</li>
+<li>
+<p>Kernel： 官方最新版服务器内核</p>
+</li>
+<li>
+<p>XTLS Trojan 443 Fallback回落</p>
+</li>
+<li>
+<p>Nginx 80 跳转HTTPS，Cloudreve防止主动探测，非WSS请求Path一律403回显</p>
+</li>
+<li>
+<p>新版SS加密套件 8443</p>
+</li>
+</ul>
+<p><a href="https://limetw.eu/../oss/30367fe9.zip">点我</a>，一键打包下载所有文件 （定期更新）</p>
+<p><br>
+请使用root权限登录vps，不然你每段话都要加上sudo</p>
+<h3 id="第一句话">第一句话：</h3>
+<pre tabindex="0"><code>apt update &amp;&amp; apt -t bullseye-backports -y install linux-image-cloud-amd64 &amp;&amp; apt -y install wget curl vim git nginx ufw &amp;&amp; bash -c &#34;$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)&#34; @ install -u root &amp;&amp; wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz &amp;&amp; tar -C /usr/local -xzf go1.18.2.linux-amd64.tar.gz &amp;&amp; export PATH=$PATH:/usr/local/go/bin &amp;&amp; go version &amp;&amp; git clone https://github.com/XTLS/Xray-core.git &amp;&amp; cd Xray-core &amp;&amp; go mod download &amp;&amp; CGO_ENABLED=0 go build -o xray -trimpath -ldflags &#34;-s -w -buildid=&#34; ./main &amp;&amp; systemctl stop xray &amp;&amp; mv xray /usr/local/bin/xray &amp;&amp; rm -rf /usr/local/share/xray/geoip.dat &amp;&amp; cd /usr/local/share/xray/ &amp;&amp; wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat &amp;&amp; cd /root &amp;&amp; wget https://github.com/cloudreve/Cloudreve/releases/download/3.5.3/cloudreve_3.5.3_linux_amd64.tar.gz &amp;&amp; tar -zxvf cloudreve_3.5.3_linux_amd64.tar.gz &amp;&amp; chmod +x ./cloudreve &amp;&amp; vim /etc/ssh/sshd_config
+</code></pre><p>执行完第一句话，把修改好的文件上传至服务器。建议新手把全文看完再操作！</p>
+<p>然后，你需要做两件事：</p>
+<p>1.手动修改sshd_config，如果不需要私钥登录，输入 :wq 回车直接退出；</p>
+<p>2.执行 ./cloudreve ，把密码记录下来。 安全起见，执行完第二句话后，登录你的网站，禁止注册功能。</p>
+<p>完成后，输入 reboot 重启VPS。</p>
+<p><br>
+/root/.ssh/authorized_keys 如过你使用SSH私钥登录的话，需要上传公钥 （自己准备）</p>
+<p>/root/ssh/*.crt 存放证书 *.key 存放私钥 （已提供v26-dy.ixigua.com 抖音免流自签证书，最好换成自己的）</p>
+<p>/etc/sysctl.conf 开启BBR</p>
+<p>/etc/nginx/cond.f/*.conf Nginx配置文件，防止主动探测</p>
+<p>/usr/local/etc/xray/config.json Xray配置文件</p>
+<p>/usr/lib/systemd/system/cloudreve.service 守护Cloudreve</p>
+<h3 id="第二句话">第二句话：</h3>
+<pre tabindex="0"><code>cd /etc/nginx &amp;&amp; rm -rf sites-* &amp;&amp; chmod 700 /root/.ssh &amp;&amp; chmod 600 /root/.ssh/authorized_keys &amp;&amp; systemctl daemon-reload &amp;&amp; systemctl enable nginx &amp;&amp; systemctl enable cloudreve &amp;&amp; systemctl restart ssh &amp;&amp; systemctl restart nginx &amp;&amp; systemctl restart xray &amp;&amp; systemctl restart cloudreve &amp;&amp; sysctl -p &amp;&amp; ufw allow ssh &amp;&amp; ufw allow 443 &amp;&amp; ufw allow 8443 &amp;&amp; ufw allow 80 &amp;&amp; ufw allow 1024:65535/udp &amp;&amp; ufw reload &amp;&amp; ufw enable
+</code></pre><h3 id="好吧现在来简单地解释">好吧，现在来简单地解释：</h3>
+<pre tabindex="0"><code>apt update &amp;&amp; apt -t bullseye-backports -y install linux-image-cloud-amd64
+</code></pre><p>更新系统，并安装官方最新版服务器内核</p>
+<p>默认的内核够用，也可以折腾xanmod，推荐BBR2 FQ_PIE</p>
+<pre tabindex="0"><code>bash -c &#34;$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)&#34; @ install -u root
+</code></pre><p>自动安装最新发布版Xray</p>
+<pre tabindex="0"><code>wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz &amp;&amp; tar -C /usr/local -xzf go1.18.2.linux-amd64.tar.gz &amp;&amp; export PATH=$PATH:/usr/local/go/bin &amp;&amp; go version &amp;&amp; git clone https://github.com/XTLS/Xray-core.git &amp;&amp; cd Xray-core &amp;&amp; go mod download &amp;&amp; CGO_ENABLED=0 go build -o xray -trimpath -ldflags &#34;-s -w -buildid=&#34; ./main &amp;&amp; systemctl stop xray &amp;&amp; mv xray /usr/local/bin/xray
+</code></pre><p>编译最新版Xray，它和发布版还是有区别的</p>
+<p>比如，我写这篇教程的时候。发布版还没合并SS 2022</p>
+<p>写出来吧，新手根本不知道怎么编译还没发布的代码</p>
+<pre tabindex="0"><code>rm -rf /usr/local/share/xray/geoip.dat &amp;&amp; cd /usr/local/share/xray/ &amp;&amp; wget https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat &amp;&amp; cd /root &amp;&amp; wget https://github.com/cloudreve/Cloudreve/releases/download/3.5.3/cloudreve_3.5.3_linux_amd64.tar.gz &amp;&amp; tar -zxvf cloudreve_3.5.3_linux_amd64.tar.gz &amp;&amp; chmod +x ./cloudreve &amp;&amp; vim /etc/ssh/sshd_config
+</code></pre><p>更新增强版GeoIP文件，并下载Cloudreve。然后弹出sshd_config，根据情况改</p>
+<p>第二句话，不用解释了吧。</p>
+<p>该授权的授权，该删的删，配置ufw防火墙，重启每项服务。</p>
+<h3 id="打包文件里写得更详细去看吧">打包文件里写得更详细，去看吧。</h3>
+<p>看不懂的话就去google，我是根据Xray官方文档和十几年的经验总结出来的，只为方便。同时不失性能和稳定，以及安全的保障。</p>
+<p>我不写脚本。提倡新手不要做伸手党，自己丰衣足食，从每次的错误中进步。</p>
+
+  </div>
+
+  <div id=links>
     
-      <li>
-        <h2><a href="https://limetw.eu/archives/650ebebcba4b92ba/">这波稳了</a></h2>
-        <div class=date>
-          
-            May 2022
-          
-        </div>
-      </li>
+      <a href="https://limetw.eu/archives/6cd26997da81737f/">&laquo;&nbsp;iPhone 14 Pro Max在线</a>
     
-      <li>
-        <h2><a href="https://limetw.eu/archives/3f7d9278f2a3f125/">两句话优雅扶墙</a></h2>
-        <div class=date>
-          
-            March 2022
-          
-        </div>
-      </li>
     
-      <li>
-        <h2><a href="https://limetw.eu/archives/6cd26997da81737f/">iPhone 14 Pro Max在线</a></h2>
-        <div class=date>
-          
-            September 2021
-          
-        </div>
-      </li>
+      <a href="https://limetw.eu/archives/650ebebcba4b92ba/">这波稳了&nbsp;&raquo;</a>
     
-      <li>
-        <h2><a href="https://limetw.eu/archives/508ccf5f51babd58/">我命由我</a></h2>
-        <div class=date>
-          
-            March 2021
-          
-        </div>
-      </li>
-    
-      <li>
-        <h2><a href="https://limetw.eu/archives/cdd68a1605728c3b/">在籠裏出生的鳥會認為飛翔是一種病</a></h2>
-        <div class=date>
-          
-            September 2014
-          
-        </div>
-      </li>
-    
-  </ul>
+  </div>
 </section>
 
 
 </body>
 </html>
+
 
 
